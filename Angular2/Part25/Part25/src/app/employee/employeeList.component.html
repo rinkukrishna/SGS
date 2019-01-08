@@ -1,0 +1,47 @@
+﻿<employee-count [all]="getTotalEmployees()"
+                [male]="getTotalMaleEmployees()"
+                [female]="getTotalFemaleEmployees()"
+                (countRadioButtonSelectionChanged)="onEmployeeCountRadioButtonChange($event)"></employee-count>
+<br /><br />
+
+<table>
+    <thead>
+        <tr>
+            <th>Employee Code</th>
+            <th>Employee Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Salary</th>
+            <th>Index</th>
+            <th>IsEven</th>
+            <th>IsOdd</th>
+            <th>IsFirst</th>
+            <th>IsLast</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor='let employee of employees;trackBy:trackByEmpCode; let i=index;let isEven=even;let isOdd=odd;let isFirst=first;let isLast=last'>
+            <tr *ngIf="selectedEmployeeCountRadioButton=='All' || selectedEmployeeCountRadioButton==employee.gender">
+                <td>{{employee.code}}</td>
+                <td>{{employee.name |employeeTitle:employee.gender}}</td>
+                <td>{{employee.gender}}</td>
+                <td>{{employee.annualSalary}}</td>
+                <td>{{employee.dateOfBirth}}</td>
+                <td>{{i}}</td>
+                <td>{{isEven}}</td>
+                <td>{{isOdd}}</td>
+                <td>{{isFirst}}</td>
+                <td>{{isLast}}</td>
+            </tr>
+        </ng-container>
+        <tr *ngIf="!employees || employees.length==0">
+            <td colspan="5">
+                No Record Found
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<button (click)='getEmployee()'>Refresh</button>
+<br />
+<!--<input type="button"  (click)='getEmployee()' value="Refresh" />this also works-->
